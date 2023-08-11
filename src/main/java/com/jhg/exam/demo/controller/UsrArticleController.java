@@ -3,15 +3,20 @@ package com.jhg.exam.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jhg.exam.demo.service.ArticleService;
 import com.jhg.exam.demo.vo.Article;
 
 @Controller
 public class UsrArticleController {
 	// 인스턴스 변수 시작
+	// Autowried : 알아서 new 해주는 기능
+	@Autowired
+	private ArticleService articleService;
 	private int articleLastId;
 	private List<Article> articles;
 	// 인스턴스 변수 끝
