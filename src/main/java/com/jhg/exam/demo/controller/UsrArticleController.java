@@ -16,6 +16,7 @@ public class UsrArticleController {
 	@Autowired
 	// 인스턴스 변수 시작
 	private ArticleService articleService;
+	// 인스턴스 변수 끝
 
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
