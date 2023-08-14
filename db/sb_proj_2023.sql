@@ -32,9 +32,36 @@ CREATE TABLE `article` (
 /*Data for the table `article` */
 
 insert  into `article`(`id`,`regDate`,`updateDate`,`title`,`body`) values 
-(1,'2023-08-14 09:38:37','2023-08-14 09:38:37','제목1','내용1'),
-(2,'2023-08-14 09:38:37','2023-08-14 09:38:37','제목2','내용2'),
-(3,'2023-08-14 09:38:37','2023-08-14 09:38:37','제목3','내용3');
+(1,'2023-08-14 10:53:53','2023-08-14 10:53:53','제목1','내용1'),
+(2,'2023-08-14 10:53:53','2023-08-14 10:53:53','제목2','내용2'),
+(3,'2023-08-14 10:53:53','2023-08-14 10:53:53','제목3','내용3');
+
+/*Table structure for table `member` */
+
+DROP TABLE IF EXISTS `member`;
+
+CREATE TABLE `member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `regDate` datetime NOT NULL,
+  `updateDate` datetime NOT NULL,
+  `loginId` char(20) NOT NULL,
+  `loginPw` char(60) NOT NULL,
+  `authLevel` smallint(2) unsigned DEFAULT 3 COMMENT '(3=일반, 7=관리자)',
+  `name` char(20) NOT NULL,
+  `nickname` char(20) NOT NULL,
+  `cellphoneNo` char(20) NOT NULL,
+  `email` char(20) NOT NULL,
+  `delStatus` tinyint(1) unsigned DEFAULT 0 COMMENT '탈퇴여부(0=탈퇴전, 1=탈퇴)',
+  `delDate` datetime DEFAULT NULL COMMENT '탈퇴날짜',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `member` */
+
+insert  into `member`(`id`,`regDate`,`updateDate`,`loginId`,`loginPw`,`authLevel`,`name`,`nickname`,`cellphoneNo`,`email`,`delStatus`,`delDate`) values 
+(1,'2023-08-14 10:53:53','2023-08-14 10:53:53','admin','admin',7,'관리자','관리자','010-1234-1234','admin@admin.com',0,NULL),
+(2,'2023-08-14 10:53:53','2023-08-14 10:53:53','user1','user1',3,'사용자1','사용자1','010-1234-1234','user1@admin.com',0,NULL),
+(3,'2023-08-14 10:53:53','2023-08-14 10:53:53','user2','user2',3,'사용자2','사용자2','010-1234-1234','user2@admin.com',0,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
