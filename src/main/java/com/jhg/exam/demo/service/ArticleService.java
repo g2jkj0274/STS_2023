@@ -14,12 +14,11 @@ public class ArticleService {
 	// Autowried써도 되고 아래 생성자처럼 해도 된다.
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
-
-		articleRepository.makeTestData();
 	}
 
-	public Article writeArticle(String title, String body) {
-		return articleRepository.writeArticle(title, body);
+	public int writeArticle(String title, String body) {
+		articleRepository.writeArticle(title, body);
+		return articleRepository.getLastInsertId();
 	}
 
 	public List<Article> getArticles() {
