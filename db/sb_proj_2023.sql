@@ -24,6 +24,7 @@ CREATE TABLE `article` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `regDate` datetime NOT NULL,
   `updateDate` datetime NOT NULL,
+  `memberId` int(10) unsigned NOT NULL,
   `title` char(100) NOT NULL,
   `body` text NOT NULL,
   PRIMARY KEY (`id`)
@@ -31,10 +32,10 @@ CREATE TABLE `article` (
 
 /*Data for the table `article` */
 
-insert  into `article`(`id`,`regDate`,`updateDate`,`title`,`body`) values 
-(1,'2023-08-14 12:35:04','2023-08-14 12:35:04','제목1','내용1'),
-(2,'2023-08-14 12:35:04','2023-08-14 12:35:04','제목2','내용2'),
-(3,'2023-08-14 12:35:04','2023-08-14 12:35:04','제목3','내용3');
+insert  into `article`(`id`,`regDate`,`updateDate`,`memberId`,`title`,`body`) values 
+(1,'2023-08-17 10:26:32','2023-08-17 10:26:32',2,'제목1','내용1'),
+(2,'2023-08-17 10:26:32','2023-08-17 10:26:32',2,'제목2','내용2'),
+(3,'2023-08-17 10:26:32','2023-08-17 10:26:32',2,'제목3','내용3');
 
 /*Table structure for table `member` */
 
@@ -59,9 +60,9 @@ CREATE TABLE `member` (
 /*Data for the table `member` */
 
 insert  into `member`(`id`,`regDate`,`updateDate`,`loginId`,`loginPw`,`authLevel`,`name`,`nickname`,`cellphoneNo`,`email`,`delStatus`,`delDate`) values 
-(1,'2023-08-14 12:35:04','2023-08-14 12:35:04','admin','admin',7,'관리자','관리자','010-1234-1234','admin@admin.com',0,NULL),
-(2,'2023-08-14 12:35:04','2023-08-14 12:35:04','user1','user1',3,'사용자1','사용자1','010-1234-1234','user1@admin.com',0,NULL),
-(3,'2023-08-14 12:35:04','2023-08-14 12:35:04','user2','user2',3,'사용자2','사용자2','010-1234-1234','user2@admin.com',0,NULL);
+(1,'2023-08-17 10:26:32','2023-08-17 10:26:32','admin','admin',7,'관리자','관리자','010-1234-1234','admin@admin.com',0,NULL),
+(2,'2023-08-17 10:26:32','2023-08-17 10:26:32','user1','user1',3,'사용자1','사용자1','010-1234-1234','user1@admin.com',0,NULL),
+(3,'2023-08-17 10:26:32','2023-08-17 10:26:32','user2','user2',3,'사용자2','사용자2','010-1234-1234','user2@admin.com',0,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
