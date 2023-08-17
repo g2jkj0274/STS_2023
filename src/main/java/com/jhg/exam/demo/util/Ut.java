@@ -12,4 +12,8 @@ public class Ut {
 
 		return str.trim().length() == 0;
 	}
+	
+	public static String f(String format, Object... arges) {
+		return String.format(format, arges);
+	}
 }
