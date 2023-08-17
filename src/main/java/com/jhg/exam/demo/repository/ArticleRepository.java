@@ -11,7 +11,7 @@ import com.jhg.exam.demo.vo.Article;
 public interface ArticleRepository {
 	// 현재 xml파일로 SQL 옮김
 	// INSERT INTO aritcle SET regDate = NOW(), updateDate = NOW(), title = ?, `body`= ?;
-	public void writeArticle(@Param("title") String title, @Param("body") String body);
+	public void writeArticle(@Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
 
 	// SELECT * FROM article ORDER BY id DESC;
 	public List<Article> getArticles();
