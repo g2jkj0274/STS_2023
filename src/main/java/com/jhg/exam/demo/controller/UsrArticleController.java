@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,11 +17,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
-	// Autowried : 알아서 new 해주는 기능
 	@Autowired
-	// 인스턴스 변수 시작
 	private ArticleService articleService;
-	// 인스턴스 변수 끝
 
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
@@ -56,13 +54,13 @@ public class UsrArticleController {
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
-	// doAdd한 aritlce 리스트
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public ResultData<List<Article>> getArticles() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
 		List<Article> articles = articleService.getArticles();
+		
+		model.addAttribute("articles", articles);
 
-		return ResultData.from("S-1", "게시물 리스트입니다.", "articles", articles);
+		return "usr/article/list";
 	}
 
 	@RequestMapping("/usr/article/getArticle")
@@ -73,6 +71,7 @@ public class UsrArticleController {
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
 		}
+
 		return ResultData.from("S-1", Ut.f("%d번 게시물 입니다.", id), "article", article);
 	}
 
@@ -91,17 +90,19 @@ public class UsrArticleController {
 		if (isLogined == false) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
-
+		
 		Article article = articleService.getArticle(id);
-
-		if (article.getMemberId() != loginedMemberId) {
+		
+		if ( article.getMemberId() != loginedMemberId) {
 			return ResultData.from("F-2", "권한이 없습니다.");
 		}
 
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물이 존재하지 않습니다.", id));
 		}
+
 		articleService.deleteArticle(id);
+
 		return ResultData.from("F-1", Ut.f("%d번 게시물이 삭제되었습니다.", id));
 	}
 
