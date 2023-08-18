@@ -12,6 +12,7 @@ public class Rq {
 
 	public Rq(HttpServletRequest req) {
 		HttpSession httpSession = req.getSession();
+		
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
@@ -23,9 +24,5 @@ public class Rq {
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 
-	}
-
-	public boolean isLogined() {
-		return false;
 	}
 }
