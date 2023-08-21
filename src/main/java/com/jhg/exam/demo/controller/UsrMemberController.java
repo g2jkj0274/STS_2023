@@ -70,10 +70,10 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw){
-		Rq rq = (Rq)req.getAttribute("rq");
-		
-		if ( rq.isLogined() ) {
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		if (rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인 상태입니다.");
 		}
 
@@ -102,19 +102,15 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData<Member> doLogout(HttpSession httpSession) {
-		boolean isLogined = false;
+	public ResultData<Member> doLogout(HttpServletRequest req, HttpSession httpSession) {
+		Rq rq = (Rq) req.getAttribute("rq");
 
-		if (httpSession.getAttribute("loginedMemberId") == null) {
-			isLogined = true;
+		if (!rq.isLogined()) {
+			return ResultData.from("S-1", "이미 로그아웃 상태입니다.");
 		}
 
-		if (isLogined) {
-			return ResultData.from("F-1", "이미 로그아웃 상태입니다.");
-		}
+		rq.logout();
 
-		httpSession.removeAttribute("loginedMemberId");
-
-		return ResultData.from("S-1", "로그아웃 되었습니다.");
+		return ResultData.from("S-2", "로그아웃 되었습니다.");
 	}
 }
