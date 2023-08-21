@@ -39,17 +39,14 @@ public class Rq {
 	}
 
 	public void printHistoryBackJs(String msg) {
-		// 한글 패치
 		resp.setContentType("text/html; charset=UTF-8");
-
-		println("<script>");
-
-		if (!Ut.empty(msg)) {
-			println("alert('" + msg + "')");
-		}
-		println("history.back();");
-
-		println("</script>");
+		print(Ut.jsHistoryBack(msg));
+	}
+	
+	public String historyBackJsOnView(String msg) {
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
+		return "common/js";
 	}
 
 	public void print(String str) {
@@ -60,9 +57,11 @@ public class Rq {
 		}
 	}
 
+	/*
 	private void println(String str) {
 		print(str + "\n");
 	}
+	*/
 	
 	public void login(Member member) {
 		session.setAttribute("loginedMemberId", member.getId());
