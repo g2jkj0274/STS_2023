@@ -25,7 +25,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 				.excludePathPatterns("/resource/**");
 		
 		registry.addInterceptor(needLoginInterceptor)
-				.addPathPatterns("/usr/article/write")
+				.addPathPatterns("/usr/article/doAdd")
+				//이건 왜 있음?
 				.addPathPatterns("/usr/article/doWrite")
 				.addPathPatterns("/usr/article/modify")
 				.addPathPatterns("/usr/article/doModify")
