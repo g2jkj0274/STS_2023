@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhg.exam.demo.service.ArticleService;
+import com.jhg.exam.demo.service.BoardService;
 import com.jhg.exam.demo.util.Ut;
 import com.jhg.exam.demo.vo.Article;
+import com.jhg.exam.demo.vo.Board;
 import com.jhg.exam.demo.vo.ResultData;
 import com.jhg.exam.demo.vo.Rq;
 
@@ -20,6 +22,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private BoardService boardService;
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
@@ -52,11 +56,14 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+		Board board = boardService.getBoardById(boardId);
+		
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
