@@ -22,9 +22,9 @@ public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 
-	@RequestMapping("/usr/article/doAdd")
+	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doAdd(HttpServletRequest req, String title, String body) {
+	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (Ut.empty(title)) {
@@ -41,6 +41,11 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		return ResultData.newData(writeArticleRd, "article", article);
+	}
+
+	@RequestMapping("/usr/article/write")
+	public String showWrite() {
+		return "/usr/article/write";
 	}
 
 	@RequestMapping("/usr/article/list")
@@ -110,7 +115,7 @@ public class UsrArticleController {
 			return rq.historyBackJsOnView(Ut.f("%d번 게시물이 존재하지 않습니다.", id));
 		}
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
-		
+
 		model.addAttribute("article", article);
 
 		if (actorCanModifyRd.isFail()) {
