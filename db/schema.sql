@@ -32,7 +32,6 @@ title = '제목 3',
 
 SELECT * FROM article;
 
-
 # 회원 테이블 생성
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
