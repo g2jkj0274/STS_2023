@@ -10,14 +10,12 @@ import com.jhg.exam.demo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
-	// 현재 xml파일로 SQL 옮김
-	// INSERT INTO aritcle SET regDate = NOW(), updateDate = NOW(), title = ?, `body`= ?;
-	public void writeArticle(@Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
+	public void writeArticle(@Param("memberId") int memberId, @Param("boardId")  int boardId, @Param("title") String title, @Param("body") String body);
 	
 	@Select("""
 			<script>
 				SELECT A.*,
-				M.nickname AS extra__writerName
+				M.nickname AS extra_writerName
 				FROM article AS A
 				LEFT JOIN `member` AS M
 				ON A.memberId = M.id
@@ -29,6 +27,7 @@ public interface ArticleRepository {
 			""")
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId);
 
+	
 	@Select("""
 			SELECT A.*,
 			M.nickname AS extra_writerName
@@ -38,15 +37,13 @@ public interface ArticleRepository {
 			WHERE A.id = #{id}
 			""")
 	public Article getForPrintArticle(@Param("id") int id);
-
-	// DELETE * FROM article WHERE id = ?
+	
 	public void deleteArticle(@Param("id") int id);
 
-	// UPDATE article SET title = ?, `body` = ?, updateDate = NOW() WHERE id = ?;
-	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
+	public void modifyArticle(@Param("id")int id, @Param("title") String title, @Param("body") String body);
 
 	public int getLastInsertId();
-	
+
 	@Select("""
 			<script>
 				SELECT COUNT(*) AS cnt

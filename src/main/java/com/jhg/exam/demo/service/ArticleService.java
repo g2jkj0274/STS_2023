@@ -13,13 +13,12 @@ import com.jhg.exam.demo.vo.ResultData;
 public class ArticleService {
 	ArticleRepository articleRepository;
 
-	// Autowried써도 되고 아래 생성자처럼 해도 된다.
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
 	}
 
-	public ResultData<Integer> writeArticle(int memberId, String title, String body) {
-		articleRepository.writeArticle(memberId, title, body);
+	public ResultData<Integer> writeArticle(int memberId, int boardId, String title, String body) {
+		articleRepository.writeArticle(memberId, boardId, title, body);
 		int id = articleRepository.getLastInsertId();
 
 		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
