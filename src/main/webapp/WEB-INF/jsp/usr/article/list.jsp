@@ -5,16 +5,14 @@
 
 <section class="mt-5">
   <div class="container mx-auto px-3">
-    <div>
-      게시물 개수 : ${articlesCount}개
-    </div>
+    <div>게시물 개수 : ${articlesCount}개</div>
     <div class="table-box-type-1">
       <table>
         <colgroup>
-          <col width="50"/>
-          <col width="150"/>
-          <col width="150"/>
-          <col width="150"/>
+          <col width="50" />
+          <col width="150" />
+          <col width="150" />
+          <col width="150" />
         </colgroup>
         <thead>
           <tr>
@@ -43,8 +41,8 @@
     </div>
     <div class="page-menu mt-5 flex justify-center">
       <div class=btn-group>
-        <c:forEach begin="1" end="10" var="i">
-          <a href="?page=${i}" class="btn btn-sm ${param.page == i ? 'btn-active' : '' }">${i}</a>
+        <c:forEach begin="1" end="${pagesCount}" var="i">
+          <a href="?page=${i}" class="btn btn-sm ${page == i ? 'btn-active' : '' }">${i}</a>
         </c:forEach>
       </div>
     </div>
