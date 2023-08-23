@@ -1,7 +1,7 @@
 # DB 생성
-DROP DATABASE IF EXISTS sb_proj_2023_t;
-CREATE DATABASE sb_proj_2023_t;
-USE sb_proj_2023_t;
+DROP DATABASE IF EXISTS sb_proj_2023;
+CREATE DATABASE sb_proj_2023;
+USE sb_proj_2023;
 
 # 게시물 테이블 생성
 CREATE TABLE article (
