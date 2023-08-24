@@ -42,7 +42,7 @@
     <div class="page-menu mt-5 flex justify-center">
       <div class=btn-group>
 
-        <c:set var="pageMenuArmLen" value="5" />
+        <c:set var="pageMenuArmLen" value="4" />
         <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
         <c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}" />
 
