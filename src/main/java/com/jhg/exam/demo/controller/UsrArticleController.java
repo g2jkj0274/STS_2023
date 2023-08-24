@@ -21,7 +21,7 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	private BoardService boardService;
 	private Rq rq;
-	
+
 	public UsrArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
@@ -41,35 +41,37 @@ public class UsrArticleController {
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 
 		int id = writeArticleRd.getData1();
-		
-		if ( Ut.empty(replaceUri) ) {
+
+		if (Ut.empty(replaceUri)) {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 
 		return rq.jsReplace(Ut.f("%d번 글이 작성되었습니다.", id), replaceUri);
 	}
-	
+
 	@RequestMapping("/usr/article/write")
 	public String showWrite() {
 		return "usr/article/write";
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "title, body") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 		Board board = boardService.getBoardById(boardId);
-		
-		if ( board == null ) {
+
+		if (board == null) {
 			return rq.historyBackJsOnView(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 
-		int articlesCount = articleService.getArticlesCount(boardId);
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 		int itemsCountInAPage = 10;
-		
-		
+
 		// 글 21개 > page = 3개
-		int pagesCount = (int) Math.ceil((double)articlesCount/itemsCountInAPage);
-		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage, page);
+		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
+
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage,
+				page);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
@@ -133,7 +135,7 @@ public class UsrArticleController {
 		}
 
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
-		
+
 		model.addAttribute("article", article);
 
 		if (actorCanModifyRd.isFail()) {
@@ -161,7 +163,7 @@ public class UsrArticleController {
 		if (actorCanModifyRd.isFail()) {
 			return rq.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
-		
+
 		articleService.modifyArticle(id, title, body);
 
 		return rq.jsReplace(Ut.f("%d번 글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
