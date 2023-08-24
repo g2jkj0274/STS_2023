@@ -23,8 +23,8 @@ public interface ArticleRepository {
 				<if test="boardId != 0">
 					WHERE A.boardId = #{boardId}
 				</if>
-				<if test="searchKeywordTypeCode=='title'">
-					<choose>
+				<if test="searchKeyword != ''">
+				  <choose>
 				    <when test="searchKeywordTypeCode == 'title'">
 				      AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
 				    </when>

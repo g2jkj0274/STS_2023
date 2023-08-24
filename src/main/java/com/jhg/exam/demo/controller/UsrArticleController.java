@@ -30,7 +30,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body, String replaceUri) {
+	public String doWrite(@RequestParam(defaultValue = "2") int boardId, String title, String body, String replaceUri) {
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("title(을)를 작성해주세요.");
 		}
